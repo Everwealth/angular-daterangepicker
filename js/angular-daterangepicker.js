@@ -20,6 +20,7 @@
         max: '=',
         model: '=ngModel',
         opts: '=options',
+        customCallback: '&callback',
         clearable: '='
       },
       link: function($scope, element, attrs, modelCtrl) {
@@ -132,8 +133,9 @@
           var eventType, results;
           el.daterangepicker(angular.extend(opts, {
             autoUpdateInput: false
-          }), function(start, end) {
+          }), function(start, end, label) {
             return $scope.$apply(function() {
+              $scope.customCallback(start, end, label);
               return $scope.model = opts.singleDatePicker ? start : {
                 startDate: start,
                 endDate: end
